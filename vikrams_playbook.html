@@ -1,111 +1,490 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Vikram's Playbook</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vikram's Nifty Playbook</title>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #d6dde8; min-height: 100vh; display: flex; justify-content: center; align-items: flex-start; padding: 40px 20px; font-family: 'Nunito', sans-serif; }
-  .notebook { width: 700px; background: #fefcf7; border-radius: 4px 14px 14px 4px; box-shadow: -7px 0 0 #c07850, -13px 0 0 #d08860, 5px 5px 24px rgba(0,0,0,0.22), 10px 10px 40px rgba(0,0,0,0.12); position: relative; overflow: hidden; }
-  .notebook::before { content: ''; position: absolute; left: 80px; top: 0; bottom: 0; width: 2px; background: #e8a0a0cc; z-index: 2; }
-  .holes { position: absolute; left: -22px; top: 0; bottom: 0; width: 24px; display: flex; flex-direction: column; justify-content: space-around; padding: 28px 0; z-index: 10; }
-  .hole { width: 22px; height: 22px; background: #d6dde8; border-radius: 50%; border: 2.5px solid #a8b8c8; box-shadow: inset 0 2px 5px rgba(0,0,0,0.25); }
-  .page { padding: 0 44px 50px 104px; position: relative; background-image: repeating-linear-gradient(transparent, transparent 37px, #b8cce433 37px, #b8cce433 38px); background-size: 100% 38px; background-position: 0 70px; min-height: 860px; }
-  .top-strip { background: #1e3a6e; margin: 0 -44px 30px -104px; padding: 20px 44px 20px 104px; display: flex; align-items: center; justify-content: space-between; }
-  .top-strip-title { font-size: 30px; font-weight: 900; color: #fff; }
-  .top-strip-sub { font-size: 13px; font-weight: 700; color: #90aad4; letter-spacing: 2px; text-transform: uppercase; margin-top: 2px; }
-  .top-strip-badge { background: #ffffff22; border: 1px solid #ffffff44; color: #fff; font-size: 13px; font-weight: 700; padding: 6px 16px; border-radius: 20px; }
-  .owner-row { display: flex; gap: 28px; margin-bottom: 26px; padding-bottom: 18px; border-bottom: 2px dashed #e0cdb0; flex-wrap: wrap; }
-  .owner-item { display: flex; flex-direction: column; gap: 2px; }
-  .owner-label { font-size: 11px; font-weight: 800; color: #aaa; text-transform: uppercase; letter-spacing: 1px; }
-  .owner-value { font-size: 19px; font-weight: 800; color: #1e3a6e; }
-  .section-header { font-size: 13px; font-weight: 800; color: #1e3a6e; text-transform: uppercase; letter-spacing: 2px; margin: 28px 0 14px; display: flex; align-items: center; gap: 12px; }
-  .section-header::after { content: ''; flex: 1; height: 2px; background: #1e3a6e22; border-radius: 2px; }
-  .golden-rule { background: #fffbea; border: 2.5px solid #f0b429; border-radius: 10px; padding: 18px 22px; margin: 0 0 26px; }
-  .golden-rule .label { font-size: 11px; font-weight: 800; color: #854f0b; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
-  .golden-rule-row { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid #f0b42933; font-size: 17px; font-weight: 700; color: #2a2a2a; }
-  .golden-rule-row:last-child { border-bottom: none; }
-  .tag { font-size: 13px; font-weight: 800; padding: 3px 14px; border-radius: 20px; margin-left: auto; white-space: nowrap; }
-  .tag.green { background: #e1f5ee; color: #0f6e56; }
-  .tag.blue  { background: #e6f1fb; color: #185fa5; }
-  .tag.amber { background: #faeeda; color: #854f0b; }
-  .context-box { background: #f0f5ff; border-left: 5px solid #4a7fd4; border-radius: 0 10px 10px 0; padding: 16px 20px; margin: 0 0 22px; }
-  .context-box .label { font-size: 11px; font-weight: 800; color: #185fa5; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; }
-  .context-box ul { list-style: none; padding: 0; }
-  .context-box ul li { font-size: 17px; font-weight: 600; color: #1a2a4a; padding: 6px 0; display: flex; gap: 12px; border-bottom: 1px solid #c8d8f055; }
-  .context-box ul li:last-child { border-bottom: none; }
-  .context-box ul li::before { content: '→'; color: #4a7fd4; font-weight: 800; flex-shrink: 0; }
-  .rule-card { border-radius: 12px; padding: 20px 24px; margin: 0 0 20px; }
-  .rule-card.neutral { background: #fffde7; border: 2px solid #f0b429; }
-  .rule-card.bullish { background: #f0fff8; border: 2px solid #26a69a; }
-  .rule-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
-  .rule-tag { display: inline-block; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; padding: 4px 14px; border-radius: 20px; }
-  .neutral .rule-tag { background: #f0b429; color: #412402; }
-  .bullish .rule-tag { background: #26a69a; color: #04342c; }
-  .tv-link { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800; color: #185fa5; background: #e6f1fb; border: 1.5px solid #85b7eb; border-radius: 20px; padding: 4px 12px; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
-  .tv-link.pending { color: #bbb; background: #f5f5f5; border-color: #ddd; cursor: default; }
-  .rule-title { font-size: 24px; font-weight: 900; color: #1a2a4a; margin-bottom: 10px; line-height: 1.25; }
-  .rule-body { font-size: 17px; font-weight: 600; color: #444; line-height: 1.8; margin-bottom: 14px; }
-  .rule-action { font-size: 16px; font-weight: 800; padding: 9px 18px; border-radius: 8px; display: inline-block; }
-  .neutral .rule-action { background: #faeeda; color: #633806; }
-  .bullish .rule-action { background: #e1f5ee; color: #085041; }
-  .rule-date { font-size: 12px; font-weight: 700; color: #bbb; margin-top: 12px; }
-  .placeholder { border: 2.5px dashed #d8d8d8; border-radius: 12px; padding: 26px; margin: 0 0 20px; text-align: center; }
-  .placeholder .text { font-size: 17px; font-weight: 700; color: #ccc; }
-  .divider { border: none; border-top: 2px dashed #e0cdb0; margin: 26px 0; }
-  .quote { text-align: center; font-size: 17px; font-weight: 700; color: #888; margin-top: 16px; font-style: italic; }
-  .page-number { font-size: 13px; font-weight: 700; color: #bbb; text-align: right; margin-top: 32px; }
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --bg: #faf8f4;
+    --surface: #ffffff;
+    --border: #e8e2d9;
+    --rule-line: #d6cfc4;
+    --accent: #c8873a;
+    --accent-dark: #a06828;
+    --red: #c0392b;
+    --green: #1a7a4a;
+    --blue: #1a5fa8;
+    --text: #1c1a17;
+    --muted: #8a8278;
+    --spine: #b8824a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #ddd8d0;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 40px 16px;
+  }
+
+  .notebook {
+    background: var(--bg);
+    width: 100%;
+    max-width: 820px;
+    border-radius: 4px;
+    box-shadow: -6px 0 0 var(--spine), 4px 4px 24px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.08);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Red margin line */
+  .notebook::before {
+    content: '';
+    position: absolute;
+    left: 72px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: rgba(200, 80, 60, 0.35);
+    z-index: 1;
+  }
+
+  /* Horizontal ruled lines */
+  .ruled-bg {
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 31px,
+      #e8e3da 31px,
+      #e8e3da 32px
+    );
+    background-position: 0 72px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .content {
+    position: relative;
+    z-index: 2;
+    padding: 48px 48px 48px 88px;
+  }
+
+  /* Header */
+  .book-header {
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .book-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  .book-header .subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Golden rule box */
+  .golden-box {
+    background: #fff8ed;
+    border: 1px solid #e6c87a;
+    border-left: 4px solid var(--accent);
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin-bottom: 40px;
+    font-size: 13px;
+  }
+
+  .golden-box .g-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent-dark);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .golden-box .g-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .g-pill {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 500;
+  }
+
+  .g-pill.green  { background: #e6f4ec; color: var(--green); border: 1px solid #b8ddc8; }
+  .g-pill.red    { background: #fbeaea; color: var(--red); border: 1px solid #e8c0bc; }
+  .g-pill.blue   { background: #e8f0fb; color: var(--blue); border: 1px solid #b8cef0; }
+  .g-sep { color: var(--muted); font-size: 11px; }
+
+  /* Rule cards */
+  .rule-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 28px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+
+  .rule-badge-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 18px 10px;
+    border-bottom: 1px solid var(--border);
+    background: #f7f4ef;
+  }
+
+  .rule-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+  .badge-patience    { background: #fff3e0; color: #c8873a; border: 1px solid #f0c070; }
+  .badge-confluence  { background: #e8f0fb; color: #1a5fa8; border: 1px solid #b8cef0; }
+  .badge-discipline  { background: #fff8ed; color: #a06828; border: 1px solid #e6c87a; }
+  .badge-supply      { background: #fbeaea; color: #c0392b; border: 1px solid #e8c0bc; }
+
+  .chart-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: white;
+  }
+  .chart-badge a { color: var(--muted); text-decoration: none; }
+  .chart-badge a:hover { color: var(--accent); }
+
+  .rule-body {
+    padding: 16px 18px 18px;
+  }
+
+  .rule-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+  }
+
+  .rule-desc {
+    font-size: 13px;
+    color: #3a3630;
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+
+  .action-row {
+    background: #f7f4ef;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-size: 12.5px;
+    color: var(--text);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    flex-wrap: wrap;
+    line-height: 1.6;
+  }
+
+  .action-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--muted);
+    min-width: 52px;
+    padding-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-right: 4px;
+  }
+  .tag-entry  { background: #e8f4ec; color: #1a7a4a; border: 1px solid #b0d4bc; }
+  .tag-sl     { background: #fbeaea; color: #c0392b; border: 1px solid #e8c0bc; }
+  .tag-target { background: #e8f0fb; color: #1a5fa8; border: 1px solid #b8cef0; }
+  .tag-skip   { background: #fdf5e0; color: #c8873a; border: 1px solid #e8d090; }
+
+  .note-box {
+    background: #fffbf0;
+    border: 1px solid #f0d890;
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #7a6030;
+    margin-top: 12px;
+    line-height: 1.6;
+  }
+  .note-box strong { color: var(--accent-dark); }
+
+  .chart-img-wrap {
+    margin-top: 14px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .chart-img-wrap img {
+    width: 100%;
+    display: block;
+  }
+  .chart-caption {
+    background: #f7f4ef;
+    padding: 7px 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+
+  /* Pending rules */
+  .pending-section {
+    margin-top: 8px;
+  }
+  .pending-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .pending-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .pending-card {
+    border: 1px dashed #c8c0b4;
+    border-radius: 6px;
+    padding: 14px 18px;
+    color: #b0a898;
+    font-size: 12.5px;
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  /* Footer quote */
+  .footer-quote {
+    margin-top: 48px;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    color: var(--muted);
+    font-style: italic;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .page-num {
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 16px;
+  }
+
+  hr.rule-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 14px 0;
+  }
 </style>
 </head>
 <body>
 <div class="notebook">
-  <div class="holes"><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div></div>
-  <div class="page">
-    <div class="top-strip"><div><div class="top-strip-title">Vikram's Playbook</div><div class="top-strip-sub">Nifty Options · Manual Setup</div></div><div class="top-strip-badge">Started Mar 20, 2026</div></div>
-    <div class="owner-row">
-      <div class="owner-item"><div class="owner-label">Trader</div><div class="owner-value">Ramu</div></div>
-      <div class="owner-item"><div class="owner-label">Mentor</div><div class="owner-value">Vikram Sir</div></div>
-      <div class="owner-item"><div class="owner-label">Instrument</div><div class="owner-value">Nifty 50 Options</div></div>
-      <div class="owner-item"><div class="owner-label">Platform</div><div class="owner-value">Kite / Zerodha</div></div>
+  <div class="ruled-bg"></div>
+  <div class="content">
+
+    <!-- HEADER -->
+    <div class="book-header">
+      <h1>Vikram Sir's Nifty Playbook</h1>
+      <div class="subtitle">Nifty Options — Tactical Setups &nbsp;·&nbsp; Manual Execution via Kite / Zerodha &nbsp;·&nbsp; Updated Mar 2026</div>
     </div>
-    <div class="golden-rule">
-      <div class="label">Golden rule — tool selection</div>
-      <div class="golden-rule-row">Retracement entry / conviction of direction <span class="tag green">Debit Spread</span></div>
-      <div class="golden-rule-row">Sideways / slow grind <span class="tag blue">Credit Spread</span></div>
-      <div class="golden-rule-row">Confirmed breakout (double confluence) <span class="tag amber">Naked Buy</span></div>
+
+    <!-- GOLDEN RULE -->
+    <div class="golden-box">
+      <div class="g-title">⚡ Golden Rule — Setup Selection</div>
+      <div class="g-row">
+        <span class="g-pill green">Conviction of movement → Debit Spread</span>
+        <span class="g-sep">·</span>
+        <span class="g-pill red">Sideways / slow grind → Credit Spread</span>
+        <span class="g-sep">·</span>
+        <span class="g-pill blue">Breakout above confluence → Naked Call/Put</span>
+      </div>
     </div>
-    <div class="section-header">Key levels — identify at session start</div>
-    <div class="context-box"><div class="label">Checklist</div><ul><li>PDH — Previous Day High</li><li>PDL — Previous Day Low</li><li>Daily CPR — Central Pivot Range (top &amp; bottom)</li><li>Gap borders — if any open gap exists on chart</li></ul></div>
-    <div class="section-header">The rules</div>
-    <div class="rule-card neutral">
-      <div class="rule-card-header"><span class="rule-tag">Rule 1 — Patience</span><a class="tv-link pending">Chart pending</a></div>
-      <div class="rule-title">"Patience is the trade right now."</div>
-      <div class="rule-body">When price is floating in the dead zone between CPR and PDH / PDL, no entry IS the right entry. The market is undecided. Don't force it. Wait for a clean breakout candle or a clear rejection signal.</div>
-      <div class="rule-action">Dead zone = hands in pockets. No trade.</div>
-      <div class="rule-date">Observed: Mar 20, 2026</div>
+
+    <!-- RULE 1 -->
+    <div class="rule-card">
+      <div class="rule-badge-row">
+        <span class="rule-badge badge-patience">Rule 1 — Patience</span>
+        <span class="chart-badge">Chart pending</span>
+      </div>
+      <div class="rule-body">
+        <div class="rule-quote">"Patience is the trade right now."</div>
+        <div class="rule-desc">
+          When price is in the dead zone between key levels — between CPR and PDH/PDL —
+          there is no tradeable edge. Breakout or rejection must be confirmed before entry.
+        </div>
+        <div class="action-row">
+          <span class="action-label">Action</span>
+          <span><span class="tag tag-skip">NO ENTRY</span> Wait for breakout or rejection confirmation at CPR or PDH/PDL</span>
+        </div>
+      </div>
     </div>
-    <div class="rule-card bullish">
-      <div class="rule-card-header"><span class="rule-tag">Rule 2 — Long trigger</span><a class="tv-link" href="https://www.tradingview.com/x/IaQmfUzA/" target="_blank">View chart</a></div>
-      <div class="rule-title">PDH = Gap border = Double confluence</div>
-      <div class="rule-body">When PDH and the gap border sit at the same level, that is double confluence. Wait for a <strong>confirmed breakout candle closing above PDH</strong> — don't anticipate. Once confirmed, shorts get squeezed and gap fill becomes the magnetic target. Don't cap gains with a spread.</div>
-      <div class="rule-action">Confirmed close above PDH → Naked Call · Target = Gap fill</div>
-      <div class="rule-date">Observed: Mar 20, 2026</div>
+
+    <!-- RULE 2 -->
+    <div class="rule-card">
+      <div class="rule-badge-row">
+        <span class="rule-badge badge-confluence">Rule 2 — Confluence</span>
+        <span class="chart-badge">Chart pending</span>
+      </div>
+      <div class="rule-body">
+        <div class="rule-quote">PDH = Gap border = Double confluence → Go naked.</div>
+        <div class="rule-desc">
+          When PDH and a gap border sit at the same level, that is double confluence resistance/support.
+          Wait for a confirmed breakout <em>above</em> PDH — then go naked Call buying. Do not cap gains with a spread.
+          The target is the gap fill.
+        </div>
+        <div class="action-row">
+          <span class="action-label">Entry</span>
+          <span><span class="tag tag-entry">NAKED CALL</span> Confirmed breakout candle close above PDH = gap border</span>
+        </div>
+        <hr class="rule-divider">
+        <div class="action-row">
+          <span class="action-label">Target</span>
+          <span><span class="tag tag-target">GAP FILL</span> Do not limit with a spread — let it run to gap fill</span>
+        </div>
+      </div>
     </div>
-    <div class="rule-card neutral">
-      <div class="rule-card-header"><span class="rule-tag">Rule 3 — Discipline</span><a class="tv-link pending">Chart pending</a></div>
-      <div class="rule-title">"Until the setup manifests — cash is the position."</div>
-      <div class="rule-body">No setup = no trade. Sitting in cash is not inaction — it is an active, deliberate decision. Waiting preserves capital and keeps you sharp for when the real opportunity appears.</div>
-      <div class="rule-action">No setup visible → Stay in cash. Full stop.</div>
-      <div class="rule-date">Observed: Mar 20, 2026</div>
+
+    <!-- RULE 3 -->
+    <div class="rule-card">
+      <div class="rule-badge-row">
+        <span class="rule-badge badge-discipline">Rule 3 — Discipline</span>
+        <span class="chart-badge">Chart pending</span>
+      </div>
+      <div class="rule-body">
+        <div class="rule-quote">"Until the setup manifests — cash is the position."</div>
+        <div class="rule-desc">
+          No setup = no trade. Sitting in cash is not inaction — it is an active, deliberate decision.
+          Waiting preserves capital and keeps you sharp for when the real opportunity appears.
+        </div>
+        <div class="action-row">
+          <span class="action-label">Action</span>
+          <span><span class="tag tag-skip">CASH</span> No setup visible → Stay in cash. Full stop.</span>
+        </div>
+        <div class="note-box">
+          <strong>Observed:</strong> Mar 20, 2026
+        </div>
+      </div>
     </div>
-    <div class="section-header">Rules to be added</div>
-    <div class="placeholder"><div class="text">Rule 4 — coming from next live session...</div></div>
-    <hr class="divider"/>
-    <div class="quote">"The market rewards those who wait for the right pitch." — Vikram Sir</div>
-    <div class="page-number">Page 1 of 1</div>
-  </div>
-</div>
+
+    <!-- RULE 4 -->
+    <div class="rule-card">
+      <div class="rule-badge-row">
+        <span class="rule-badge badge-supply">Rule 4 — Supply Zone Reversal</span>
+        <span class="chart-badge"><a href="https://www.tradingview.com/x/xtViQPLn/" target="_blank">📊 View Chart ↗</a></span>
+      </div>
+      <div class="rule-body">
+        <div class="rule-quote">Supply zone on Wide CPR day = High probability short.</div>
+        <div class="rule-desc">
+          On Wide CPR days (likely sideways or reversal), when price reaches a known supply zone,
+          a bearish candle at that zone is a <strong>high probability</strong> short setup.
+          A rising 20 EMA below price does <strong>NOT</strong> disqualify the trade —
+          especially in a downtrend. Supply zone resistance overrides EMA direction.
+        </div>
+        <div class="action-row">
+          <span class="action-label">Entry</span>
+          <span><span class="tag tag-entry">SHORT</span> Bearish candle at supply zone on Wide CPR day</span>
+        </div>
+        <hr class="rule-divider">
+        <div class="action-row">
+          <span class="action-label">SL</span>
+          <span><span class="tag tag-sl">ABOVE ZONE</span> Stop loss placed above the supply zone</span>
+        </div>
+        <hr class="rule-divider">
+        <div class="action-row">
+          <span class="action-label">Target</span>
+          <span><span class="tag tag-target">CPR or 2R</span> Take profit at CPR band or 2R — whichever comes first</span>
+        </div>
+        <div class="note-box">
+          <strong>Key override:</strong> Rising 20 EMA does NOT disqualify this trade. In a downtrend,
+          supply zone resistance always overrides EMA momentum. Wide CPR = sideways/reversal bias confirmed.
+          <br><br>
+          <strong>Reference (20 Mar 26, Nifty 5min):</strong> Wide CPR day — price chopped between CPR upper (23,195) and
+          CPR lower (23,065) all day. Supply zone overhead at 23,300–23,400. Supply zone short at ~11:30 AM
+          was the high probability entry. PPT Pattern at same zone was LOW probability — supply zone above killed it.
+        </div>
+        <div class="chart-img-wrap">
+          <img src="https://www.tradingview.com/x/xtViQPLn/" alt="Rule 4 Reference Chart — 20 Mar 26 Nifty 5min Wide CPR"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+          <div style="display:none; padding:16px; text-align:center; color:#b0a898; font-size:12px; background:#f7f4ef;">
+            Chart: <a href="https://www.tradingview.com/x/xtViQPLn/" target="_blank" style="color:#c8873a;">https://www.tradingview.com/x/xtViQPLn/</a>
+          </div>
+          <div class="chart-caption">Nifty 50 · 5min · Mar 20, 2026 · Wide CPR Day — Supply Zone Reversal Pattern</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PENDING -->
+    <div class="pending-section">
+      <div class="pending-label">Rules to be added</div>
+      <div class="pending-card">Rule 5 — coming from next live session...</div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer-quote">
+      "The market rewards those who wait for the right pitch." — Vikram Sir
+    </div>
+    <div class="page-num">Page 1 of 1</div>
+
+  </div><!-- /content -->
+</div><!-- /notebook -->
 </body>
 </html>
