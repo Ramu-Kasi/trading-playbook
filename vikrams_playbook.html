@@ -174,6 +174,7 @@
   .badge-discipline  { background: #fff8ed; color: #a06828; border: 1px solid #e6c87a; }
   .badge-supply      { background: #fbeaea; color: #c0392b; border: 1px solid #e8c0bc; }
   .badge-pyramid     { background: #eef6ee; color: #1a7a4a; border: 1px solid #a8d4b4; }
+  .badge-cpr         { background: #f0eaff; color: #5b3fa6; border: 1px solid #c8b0f0; }
 
   .chart-badge {
     font-family: 'JetBrains Mono', monospace;
@@ -415,7 +416,7 @@
     <!-- HEADER -->
     <div class="book-header">
       <h1>Vikram Sir's Nifty Playbook</h1>
-      <div class="subtitle">Nifty Options — Tactical Setups &nbsp;·&nbsp; Manual Execution via Kite / Zerodha &nbsp;·&nbsp; Updated Mar 2026</div>
+      <div class="subtitle">Nifty Options — Tactical Setups &nbsp;·&nbsp; Manual Execution via Kite / Zerodha &nbsp;·&nbsp; Updated Apr 2026</div>
     </div>
 
     <!-- GOLDEN RULE -->
@@ -618,20 +619,60 @@
       </div>
     </div>
 
-  <div class="rule-card">
-  <div class="rule-number">Rule 6</div>
-  <div class="rule-title">Wide CPR — First Touch of P is the Best Spread Entry</div>
-  <div class="rule-body">
-    <p>On <strong>Wide CPR days</strong> with a <strong>sideways bullish bias</strong>, the first clean 5-min candle close at or just above the Central Pivot (P) is the highest-conviction entry for a <strong>Debit Spread</strong>.</p>
-    <ul>
-      <li><strong>First test of P:</strong> Take at full size — fresh support discovery, maximum edge.</li>
-      <li><strong>Re-test of P (60+ min later):</strong> Valid but lower quality — take at half size. Market spent time hovering at P, conviction is reduced.</li>
-      <li><strong>Do NOT require foreknowledge</strong> of how many times P will be tested. Entry logic is purely: "Clean candle close at/above P → enter spread."</li>
-    </ul>
-    <p class="golden-rule">BUY strike = P level (support) | SELL strike = nearest resistance above | Min spread width ₹100</p>
-    <p><em>Observed: Nifty 5-min chart, 6 Apr 2026 — Two entries at P (10:00 AM and 11:15 AM). First touch was the superior entry.</em></p>
-  </div>
-</div>
+    <!-- RULE 6 -->
+    <div class="rule-card">
+      <div class="rule-badge-row">
+        <span class="rule-badge badge-cpr">Rule 6 — CPR First Touch</span>
+        <span class="chart-badge"><a href="https://www.tradingview.com/x/gnMVhmNa/" target="_blank">📊 View Chart ↗</a></span>
+      </div>
+      <div class="rule-body">
+        <div class="rule-quote">First clean touch of P on a Wide CPR day = best debit spread entry.</div>
+        <div class="rule-desc">
+          On <strong>Wide CPR days</strong> with a <strong>sideways bullish bias</strong>, expect the Central Pivot (P) to act as support
+          at some point in the session. You do <em>not</em> need to know in advance how many times P will be tested —
+          entry logic is purely: a clean 5-min candle close at or just above P → enter debit spread.
+          The <strong>first</strong> test of P is the highest-conviction entry — it is fresh support discovery, no prior failure at that level.
+          Re-tests 60+ min later are valid but carry more ambiguity; size down accordingly.
+        </div>
+        <div class="action-row">
+          <span class="action-label">Entry</span>
+          <span><span class="tag tag-entry">DEBIT SPREAD</span> 5-min candle close at or just above P on a Wide CPR day</span>
+        </div>
+        <hr class="rule-divider">
+        <div class="action-row">
+          <span class="action-label">Size</span>
+          <span><span class="tag tag-entry">FULL</span> First touch of P &nbsp;·&nbsp; <span class="tag tag-skip">HALF</span> Re-test 60+ min later</span>
+        </div>
+        <hr class="rule-divider">
+        <div class="action-row">
+          <span class="action-label">Strike</span>
+          <span><span class="tag tag-entry">BUY</span> At or nearest to P level &nbsp;·&nbsp; <span class="tag tag-target">SELL</span> Nearest resistance above — min ₹100 spread width</span>
+        </div>
+        <hr class="rule-divider">
+        <div class="action-row">
+          <span class="action-label">Target</span>
+          <span><span class="tag tag-target">CPR Top / R1</span> CPR upper band or R1 — whichever comes first</span>
+        </div>
+        <div class="note-box">
+          <strong>Key override:</strong> You do NOT need foreknowledge of how many times P will be tested.
+          Judgement is purely: "Wide CPR day → P will hold at some point → wait for the candle → enter spread."
+          The first reaction to any level is always the purest signal. Re-tests carry accumulated doubt.
+          <br><br>
+          <strong>Reference (6 Apr 2026, Nifty 5min):</strong> Wide CPR day — two entries at P:
+          10:00 AM (first touch — decisive bounce, full session ahead, best entry) and
+          11:15 AM (re-test after 75 min near P — valid but lower conviction; price had spent time struggling at the level).
+          Both entries worked; the 10:00 AM entry was clearly superior in risk-adjusted terms.
+        </div>
+        <div class="chart-img-wrap">
+          <img src="https://www.tradingview.com/x/gnMVhmNa/" alt="Rule 6 Reference Chart — 6 Apr 2026 Nifty 5min Wide CPR First Touch"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+          <div style="display:none; padding:16px; text-align:center; color:#b0a898; font-size:12px; background:#f7f4ef;">
+            Chart: <a href="https://www.tradingview.com/x/gnMVhmNa/" target="_blank" style="color:#c8873a;">https://www.tradingview.com/x/gnMVhmNa/</a>
+          </div>
+          <div class="chart-caption">Nifty 50 · 5min · Apr 6, 2026 · Wide CPR Day — Two CPR Touches, First is Best</div>
+        </div>
+      </div>
+    </div>
 
        <!-- PENDING -->
     <!-- FOOTER -->
