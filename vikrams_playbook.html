@@ -44,7 +44,6 @@
     overflow: hidden;
   }
 
-  /* Red margin line */
   .notebook::before {
     content: '';
     position: absolute;
@@ -56,7 +55,6 @@
     z-index: 1;
   }
 
-  /* Horizontal ruled lines */
   .ruled-bg {
     position: absolute;
     inset: 0;
@@ -78,7 +76,6 @@
     padding: 48px 48px 48px 88px;
   }
 
-  /* Header */
   .book-header {
     margin-bottom: 48px;
     padding-bottom: 24px;
@@ -101,7 +98,6 @@
     text-transform: uppercase;
   }
 
-  /* Golden rule box */
   .golden-box {
     background: #fff8ed;
     border: 1px solid #e6c87a;
@@ -141,7 +137,6 @@
   .g-pill.blue   { background: #e8f0fb; color: var(--blue); border: 1px solid #b8cef0; }
   .g-sep { color: var(--muted); font-size: 11px; }
 
-  /* Rule cards */
   .rule-card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -175,6 +170,7 @@
   .badge-supply      { background: #fbeaea; color: #c0392b; border: 1px solid #e8c0bc; }
   .badge-pyramid     { background: #eef6ee; color: #1a7a4a; border: 1px solid #a8d4b4; }
   .badge-cpr         { background: #f0eaff; color: #5b3fa6; border: 1px solid #c8b0f0; }
+  .badge-framework   { background: #e8f6ff; color: #0a6496; border: 1px solid #90cce8; }
 
   .chart-badge {
     font-family: 'JetBrains Mono', monospace;
@@ -246,6 +242,7 @@
   .tag-sl     { background: #fbeaea; color: #c0392b; border: 1px solid #e8c0bc; }
   .tag-target { background: #e8f0fb; color: #1a5fa8; border: 1px solid #b8cef0; }
   .tag-skip   { background: #fdf5e0; color: #c8873a; border: 1px solid #e8d090; }
+  .tag-warn   { background: #fff4e0; color: #c07020; border: 1px solid #e8c080; }
 
   .note-box {
     background: #fffbf0;
@@ -278,7 +275,57 @@
     border-top: 1px solid var(--border);
   }
 
-  /* Pending rules */
+  /* Decision Framework Table — R7 */
+  .decision-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 14px;
+    font-size: 13px;
+  }
+  .decision-table thead tr {
+    background: #f0ecff;
+  }
+  .decision-table th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #5b3fa6;
+    padding: 9px 14px;
+    text-align: left;
+    border-bottom: 2px solid #c8b0f0;
+    font-weight: 600;
+  }
+  .decision-table td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .decision-table tr:last-child td {
+    border-bottom: none;
+  }
+  .decision-table tr:hover td {
+    background: #faf8f4;
+  }
+  .arrow-cell {
+    font-size: 16px;
+    color: var(--muted);
+    text-align: center;
+    padding: 11px 6px;
+  }
+  .confidence-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+  .dot-green  { background: #1a7a4a; }
+  .dot-yellow { background: #c8873a; }
+
   .pending-section {
     margin-top: 8px;
   }
@@ -311,7 +358,6 @@
     margin-bottom: 12px;
   }
 
-  /* Footer quote */
   .footer-quote {
     margin-top: 48px;
     text-align: center;
@@ -416,7 +462,7 @@
     <!-- HEADER -->
     <div class="book-header">
       <h1>Vikram Sir's Nifty Playbook</h1>
-      <div class="subtitle">Nifty Options — Tactical Setups &nbsp;·&nbsp; Manual Execution via Kite / Zerodha &nbsp;·&nbsp; Updated Apr 2026</div>
+      <div class="subtitle">Nifty Options — Tactical Setups &nbsp;·&nbsp; Manual Execution via Kite / Zerodha &nbsp;·&nbsp; Updated May 2026</div>
     </div>
 
     <!-- GOLDEN RULE -->
@@ -674,7 +720,78 @@
       </div>
     </div>
 
-       <!-- PENDING -->
+    <!-- RULE 7 -->
+    <div class="rule-card">
+      <div class="rule-badge-row">
+        <span class="rule-badge badge-framework">Rule 7 — Simple Decision Framework</span>
+        <span class="chart-badge">Use this daily 🚀</span>
+      </div>
+      <div class="rule-body">
+        <div class="rule-quote">Read CPR width + price behaviour → strategy selects itself.</div>
+        <div class="rule-desc">
+          Before every session, CPR width tells you the probable day type. Price action at open confirms it.
+          These two inputs together — CPR width and what price <em>does</em> at the key level — point directly
+          to the correct instrument. No guesswork, no overriding the framework.
+        </div>
+
+        <table class="decision-table">
+          <thead>
+            <tr>
+              <th>CPR Width</th>
+              <th>Price Behaviour</th>
+              <th style="text-align:center;">→</th>
+              <th>Strategy</th>
+              <th>Confidence</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Wide CPR</strong></td>
+              <td>Price rejects at CPR / key level — fails to break</td>
+              <td class="arrow-cell">→</td>
+              <td><span class="tag tag-entry">CREDIT SPREAD</span></td>
+              <td>
+                <span class="confidence-dot dot-green"></span>
+                <span style="font-size:12px; color: #1a7a4a; font-weight:500;">High</span>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Wide CPR</strong></td>
+              <td>Price breaks out convincingly above / below CPR</td>
+              <td class="arrow-cell">→</td>
+              <td><span class="tag tag-warn">DEBIT SPREAD</span></td>
+              <td>
+                <span class="confidence-dot dot-yellow"></span>
+                <span style="font-size:12px; color: #c07020; font-weight:500;">Moderate ⚠️</span>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Narrow CPR</strong></td>
+              <td>Price shows clear momentum / trending move</td>
+              <td class="arrow-cell">→</td>
+              <td><span class="tag tag-entry">OPTION BUYING</span></td>
+              <td>
+                <span class="confidence-dot dot-green"></span>
+                <span style="font-size:12px; color: #1a7a4a; font-weight:500;">High</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="note-box" style="margin-top:14px;">
+          <strong>Wide CPR + Rejection (✅ High confidence):</strong> Wide CPR = sideways day expected.
+          Rejection at the level confirms sellers/buyers are in control. Theta works in your favour.
+          Sell the spread at the rejection point — credit spread is the natural fit.<br><br>
+          <strong>Wide CPR + Breakout (⚠️ Moderate — use caution):</strong> Breakout on a wide CPR day
+          is counter-expectation. It can work but needs extra confirmation before entering a debit spread.
+          Do not chase — wait for a retest of the breakout level.<br><br>
+          <strong>Narrow CPR + Momentum (✅ High confidence):</strong> Narrow CPR = trending day expected.
+          Momentum confirms direction. Naked option buying (or ATM debit spread) captures the move cleanly.
+          This is Vikram Sir's preferred setup for big intraday moves.
+        </div>
+      </div>
+    </div>
+
     <!-- FOOTER -->
     <div class="footer-quote">
       "The market rewards those who wait for the right pitch." — Vikram Sir
